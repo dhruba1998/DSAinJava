@@ -1,5 +1,8 @@
 package src.KadaneAlgorithm;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Problem1 {
 
     /*53. Maximum Subarray
@@ -35,6 +38,36 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.*/
             maxSum = Math.max(maxSum,currentMaxSum);
         }
         return maxSum;
+    }
+
+    public static int[] maxSubArrayUsingSlidingWindow(int[] nums){
+        int currSum = nums[0], maxSum = nums[0];
+        int maxL = 0, maxR = 0;
+        int l=0;
+        int len = nums.length;
+        for(int r=1;r<len;r++){
+            int v1 = nums[r];
+            int v2 = currSum + nums[r];
+            if(v1 > v2){
+                currSum = nums[r];
+                l = r;
+            }
+            else {
+                currSum+=nums[r];
+            }
+            if(currSum>maxSum){
+                maxSum = currSum;
+                maxL = l;
+                maxR = r;
+            }
+        }
+        return new int[] {maxL,maxR};
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {-2,3,4,-6,1,7};
+        int[] result1 = maxSubArrayUsingSlidingWindow(arr1);
+        System.out.println(result1[0]+" "+result1[1]);
     }
 
 }
