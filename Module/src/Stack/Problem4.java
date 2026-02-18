@@ -1,5 +1,8 @@
 package src.Stack;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class Problem4 {
 
 
@@ -23,7 +26,25 @@ Input: nums = [1,2,3,4,3]
 Output: [2,3,4,-1,4]*/
 
     public int[] nextGreaterElements(int[] nums) {
-
+        Deque<Integer> stack = new ArrayDeque<>();
+        for(int i=nums.length-2;i>=0;i--){
+            stack.push(nums[i]);
+        }
+        int[] result = new int[nums.length];
+        for(int i=nums.length-1;i>=0;i--){
+            while(!stack.isEmpty() && stack.peek()<=nums[i]){
+                stack.pop();
+            }
+            if(stack.isEmpty()){
+                result[i]=-1;
+                stack.push(nums[i]);
+            }
+            else {
+                result[i]=stack.peek();
+                stack.push(nums[i]);
+            }
+        }
+        return result;
     }
 
 }
