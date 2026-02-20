@@ -1,4 +1,4 @@
-package src.LinkedListBasics;
+package src.LinkedList;
 
 public class ReverseLinkedList {
 

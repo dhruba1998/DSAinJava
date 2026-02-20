@@ -1,12 +1,16 @@
-package src.LinkedListBasics;
+package src.LinkedList;
 
-public class TraverseLinkedList {
+public class AddNodeAtFirst {
 
     public static void main(String[] args) {
         LinkNode head = LinkedList.getLinkedListHead();
-        while(head!=null){
+        LinkNode newNode = new LinkNode(10);
+        newNode.next = head;
+        head = newNode;
+        while (head!=null){
             System.out.println(head.val);
             head = head.next;
         }
     }
+
 }

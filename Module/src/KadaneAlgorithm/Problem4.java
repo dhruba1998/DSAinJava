@@ -25,19 +25,18 @@ Output: -1
 Explanation: The final subarray needs to be non-empty. You can't choose [-1] and delete -1 from it, then get an empty subarray to make the sum equals to 0.*/
 
     public static int maximumSum(int[] arr) {
-        int noDeleteMaxSum = arr[0], oneDeleteMaxSum = Integer.MIN_VALUE;
+        int noDeleteMaxSum = arr[0], oneDeleteMaxSum = 0;
         int maxSum = arr[0];
         int len = arr.length;
         for(int i=1;i<len;i++){
-            int prevNoDeleteMaxSum = noDeleteMaxSum;
+            int preNoDeleteMaxSum = noDeleteMaxSum;
+            /* noDeleteMaxSum+arr[i] -> taking all elements including the current arr[i]
+            * arr[i] -> ignoring the previous part, consider starting of subarray from current arr[i]*/
             noDeleteMaxSum = Math.max(noDeleteMaxSum+arr[i],arr[i]);
-            if(oneDeleteMaxSum==Integer.MIN_VALUE){
-                oneDeleteMaxSum = arr[i];
-                oneDeleteMaxSum = Math.max(oneDeleteMaxSum, prevNoDeleteMaxSum);
-            }
-            else{
-                oneDeleteMaxSum = Math.max(oneDeleteMaxSum + arr[i], prevNoDeleteMaxSum);
-            }
+            /* oneDeleteMaxSum -> any one element is deleted previously
+            * preNoDeleteMaxSum -> It holds all the elements from 0 to i-1 and don't include the current arr[i]*/
+            oneDeleteMaxSum = Math.max(oneDeleteMaxSum+arr[i],preNoDeleteMaxSum);
+            /* Finally, compare and update the final result maxSum */
             maxSum = Math.max(maxSum,Math.max(noDeleteMaxSum,oneDeleteMaxSum));
         }
         return maxSum;
